@@ -15,6 +15,8 @@ extends CharacterBody3D
 @export var base_speed := 4.0
 
 @onready var camera = $CameraController/Camera3D
+@onready var godette_skin: Node3D = $GodetteSkin
+@onready var godette_animation_player: AnimationPlayer = $GodetteSkin/AnimationPlayer
 
 var movement_input := Vector2.ZERO
 
@@ -31,10 +33,15 @@ func handle_movement(delta: float)->void:
 		vel_2d = vel_2d.limit_length(base_speed)
 		velocity.x = vel_2d.x
 		velocity.z = vel_2d.y
+		godette_animation_player.current_animation = "Running_B"
+		var target_angle = -movement_input.angle() + PI / 2 
+		godette_skin.rotation.y = rotate_toward(godette_skin.rotation.y, target_angle, 6 * delta)
 	else:
 		vel_2d = vel_2d.move_toward(Vector2.ZERO, base_speed * 4.0 * delta)
 		velocity.x = vel_2d.x
 		velocity.z = vel_2d.y
+		godette_animation_player.current_animation = "Idle"
+
 
 func handle_jump(delta: float)->void:
 	if is_on_floor():

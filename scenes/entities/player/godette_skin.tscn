@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxt3lxvrqc1h0"]
+
+[ext_resource type="PackedScene" uid="uid://bctcp65yp8t3f" path="res://graphics/characters/godette/godette.glb" id="1_qwdv7"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ajt42"]
+
+[node name="GodetteSkin" instance=ExtResource("1_qwdv7")]
+
+[node name="AnimationPlayer" parent="." index="1"]
+autoplay = "Idle"
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2"]
+tree_root = SubResource("AnimationNodeStateMachine_ajt42")
+anim_player = NodePath("../AnimationPlayer")
